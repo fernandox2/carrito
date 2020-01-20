@@ -22,7 +22,9 @@
     <body class="{{ $class ?? '' }}">
         
         <div id="app">
-        
+        @guest
+        @include('layouts.navbars.navs.guest')
+        @endguest
         @auth()
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

@@ -70,6 +70,14 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::put('/empresa/eliminar', 'EmpresaController@eliminar');
 		Route::put('/empresa/activar', 'EmpresaController@activar');
 
+		Route::get('/venta', 'VentaController@index');
+		Route::post('/venta/registrar', 'VentaController@store');
+		Route::put('/venta/actualizar', 'VentaController@update');
+		Route::put('/venta/eliminar', 'VentaController@eliminar');
+		Route::put('/venta/activar', 'VentaController@activar');
+
+
+
     });
  
 });

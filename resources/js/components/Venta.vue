@@ -357,7 +357,9 @@ export default {
       //Envia la petición para visualizar la data de esa página
       me.listarProducto(page, buscar, criterio);
     },
+
     registrarProducto() {
+      
       if (this.validarProducto()) {
         return;
       }
