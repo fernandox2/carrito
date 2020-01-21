@@ -24,6 +24,8 @@ Route::group(['middleware'=>['guest']],function(){
 Route::group(['middleware'=>['auth']],function(){
 
 	Route::get('/empresadelusuario', 'EmpresaController@buscarempresalogin');
+	Route::get('/obtenerusuario', 'UserController@obtenerUsuarioSesion');
+	Route::get('/ultimaboleta', 'VentaController@ultimaboleta');
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

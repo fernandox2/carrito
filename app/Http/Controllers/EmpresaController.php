@@ -144,14 +144,6 @@ class EmpresaController extends Controller
         $empresa->delete();
     }
  
-    public function activar(Request $request)
-    {
-        //if (!$request->ajax()) return redirect('/');
-         
-        $catgoria = Categoria::findOrFail($request->id);
-        $catgoria->condicion = '1';
-        $catgoria->save();
-    }
 
     public function buscarempresalogin()
     {

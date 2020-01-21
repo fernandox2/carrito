@@ -3601,6 +3601,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       precio: "",
       stock: 0,
       empresa_id: null,
+      usuario_id: null,
+      boleta: 0,
       arrayProducto: [],
       arraySeleccion: [],
       sumatotal: 0,
@@ -3756,6 +3758,28 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         console.log(error);
       });
     },
+    obtenerBoleta: function obtenerBoleta() {
+      var me = this;
+      var url = "/ultimaboleta";
+      axios.get(url).then(function (response) {
+        if (!response.data.empty) {
+          me.boleta = 1;
+        } else {
+          me.boleta = response.data + 1;
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    obtenerUsuario: function obtenerUsuario() {
+      var me = this;
+      var url = "/obtenerusuario";
+      axios.get(url).then(function (response) {
+        me.usuario_id = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     cambiarPagina: function cambiarPagina(page, buscar, criterio) {
       var me = this; //Actualiza la página actual
 
@@ -3763,28 +3787,32 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
 
       me.listarProducto(page, buscar, criterio);
     },
-    registrarProducto: function registrarProducto() {
-      if (this.validarProducto()) {
+    tomarPedido: function tomarPedido() {
+      if (this.arraySeleccion.length == 0) {
         return;
       }
 
       var me = this;
-      axios.post("/producto/registrar", {
-        nombre: this.nombre,
-        descripcion: this.descripcion,
-        stock: this.stock,
-        precio: this.precio,
-        image: this.image,
+      axios.post("/venta/registrar", {
+        boleta: this.boleta,
         empresa_id: this.empresa_id,
-        extension: this.extension
+        monto: this.sumatotal,
+        usuario_id: this.usuario_id,
+        arraySeleccion: this.arraySeleccion
       }).then(function (response) {
-        me.cerrarModal();
-        me.listarProducto(1, "", "nombre");
-        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
-          icon: "success",
-          title: "Excelente ...",
-          text: "Tu producto fue almacenado !"
-        });
+        if (response.data) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            icon: "success",
+            title: "Excelente ...",
+            text: "El pedido fue ingresdo correctamente !"
+          });
+        } else {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
+            icon: "error",
+            title: "Oops ...",
+            text: "Ocurrió un error al guardar el pedido !"
+          });
+        }
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3893,6 +3921,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
   },
   mounted: function mounted() {
     this.obtenerEmpresa();
+    this.obtenerUsuario();
+    this.obtenerBoleta();
     this.listarProducto(1, this.buscar, this.criterio);
   }
 });
@@ -28019,7 +28049,7 @@ var render = function() {
                       on: {
                         click: function($event) {
                           $event.preventDefault()
-                          return _vm.borrarVenta()
+                          return _vm.tomarPedido()
                         }
                       }
                     },
@@ -40363,35 +40393,14 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
-
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
 Vue.component('ventas-component', __webpack_require__(/*! ./components/Venta.vue */ "./resources/js/components/Venta.vue")["default"]);
 Vue.component('empresa-component', __webpack_require__(/*! ./components/Empresa.vue */ "./resources/js/components/Empresa.vue")["default"]);
 Vue.component('certifica-component', __webpack_require__(/*! ./components/Certifica.vue */ "./resources/js/components/Certifica.vue")["default"]);
 Vue.component('productos-component', __webpack_require__(/*! ./components/Producto.vue */ "./resources/js/components/Producto.vue")["default"]);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 var app = new Vue({
   el: '#app',
   data: {

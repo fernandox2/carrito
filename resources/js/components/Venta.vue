@@ -100,7 +100,7 @@
                 </div>
                 <div class="col">
                   <button
-                    @click.prevent="borrarVenta()"
+                    @click.prevent="tomarPedido()"
                     class="btn btn-icon btn-3 btn-default float-right"
                     type="button"
                   >
@@ -188,6 +188,8 @@ export default {
       precio: "",
       stock: 0,
       empresa_id: null,
+      usuario_id: null,
+      boleta: 0,
       arrayProducto: [],
       arraySeleccion: [],
       sumatotal: 0,
@@ -350,6 +352,38 @@ export default {
           console.log(error);
         });
     },
+
+    obtenerBoleta() {
+      let me = this;
+      var url = "/ultimaboleta";
+      axios
+        .get(url)
+        .then(function(response) {
+          if(!response.data.empty)
+          {
+            me.boleta = 1;
+          }else{
+            me.boleta = response.data + 1;
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
+
+    obtenerUsuario() {
+      let me = this;
+      var url = "/obtenerusuario";
+      axios
+        .get(url)
+        .then(function(response) {
+          me.usuario_id = response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });  
+    },
+
     cambiarPagina(page, buscar, criterio) {
       let me = this;
       //Actualiza la página actual
@@ -358,32 +392,38 @@ export default {
       me.listarProducto(page, buscar, criterio);
     },
 
-    registrarProducto() {
+    tomarPedido() {
       
-      if (this.validarProducto()) {
+      if (this.arraySeleccion.length == 0) {
         return;
       }
 
       let me = this;
 
       axios
-        .post("/producto/registrar", {
-          nombre: this.nombre,
-          descripcion: this.descripcion,
-          stock: this.stock,
-          precio: this.precio,
-          image: this.image,
+        .post("/venta/registrar", {
+          boleta: this.boleta,
           empresa_id: this.empresa_id,
-          extension: this.extension
+          monto: this.sumatotal,
+          usuario_id: this.usuario_id,
+          arraySeleccion: this.arraySeleccion
         })
         .then(function(response) {
-          me.cerrarModal();
-          me.listarProducto(1, "", "nombre");
-          Swal.fire({
+          if(response.data)
+          {
+            Swal.fire({
             icon: "success",
             title: "Excelente ...",
-            text: "Tu producto fue almacenado !"
+            text: "El pedido fue ingresdo correctamente !"
           });
+          }else{
+            Swal.fire({
+            icon: "error",
+            title: "Oops ...",
+            text: "Ocurrió un error al guardar el pedido !"
+          });
+          }
+
         })
         .catch(function(error) {
           console.log(error);
@@ -506,6 +546,8 @@ export default {
   },
   mounted() {
     this.obtenerEmpresa();
+    this.obtenerUsuario();
+    this.obtenerBoleta();
     this.listarProducto(1, this.buscar, this.criterio);
   }
 };
