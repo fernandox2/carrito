@@ -3602,7 +3602,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       stock: 0,
       empresa_id: null,
       usuario_id: null,
-      boleta: 0,
+      boleta: 1,
       arrayProducto: [],
       arraySeleccion: [],
       sumatotal: 0,
@@ -3762,11 +3762,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       var me = this;
       var url = "/ultimaboleta";
       axios.get(url).then(function (response) {
-        if (!response.data.empty) {
-          me.boleta = 1;
-        } else {
-          me.boleta = response.data + 1;
-        }
+        me.boleta = response.data;
+        alert(response.data);
       })["catch"](function (error) {
         console.log(error);
       });
@@ -3788,17 +3785,19 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       me.listarProducto(page, buscar, criterio);
     },
     tomarPedido: function tomarPedido() {
+      var me = this;
+      me.obtenerBoleta();
+
       if (this.arraySeleccion.length == 0) {
         return;
       }
 
-      var me = this;
       axios.post("/venta/registrar", {
-        boleta: this.boleta,
-        empresa_id: this.empresa_id,
-        monto: this.sumatotal,
-        usuario_id: this.usuario_id,
-        arraySeleccion: this.arraySeleccion
+        boleta: me.boleta,
+        empresa_id: me.empresa_id,
+        monto: me.sumatotal,
+        usuario_id: me.usuario_id,
+        arraySeleccion: me.arraySeleccion
       }).then(function (response) {
         if (response.data) {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
@@ -3806,6 +3805,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
             title: "Excelente ...",
             text: "El pedido fue ingresdo correctamente !"
           });
+          me.borrarVenta();
         } else {
           sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire({
             icon: "error",
@@ -3813,8 +3813,6 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
             text: "Ocurrió un error al guardar el pedido !"
           });
         }
-      })["catch"](function (error) {
-        console.log(error);
       });
     },
     actualizarProducto: function actualizarProducto() {
@@ -3922,7 +3920,6 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
   mounted: function mounted() {
     this.obtenerEmpresa();
     this.obtenerUsuario();
-    this.obtenerBoleta();
     this.listarProducto(1, this.buscar, this.criterio);
   }
 });
