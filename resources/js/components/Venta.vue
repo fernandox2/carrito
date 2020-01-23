@@ -353,23 +353,6 @@ export default {
         });
     },
 
-    obtenerBoleta() {
-
-      let me = this;
-      var url = "/ultimaboleta";
-      axios
-        .get(url)
-        .then(function(response) {
-
-          me.boleta = response.data;
-          alert(response.data);
-          
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-
     obtenerUsuario() {
       let me = this;
       var url = "/obtenerusuario";
@@ -394,7 +377,6 @@ export default {
     tomarPedido() {
       
       let me = this;
-      me.obtenerBoleta();
 
       if (this.arraySeleccion.length == 0) {
         return;

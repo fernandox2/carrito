@@ -3758,16 +3758,6 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         console.log(error);
       });
     },
-    obtenerBoleta: function obtenerBoleta() {
-      var me = this;
-      var url = "/ultimaboleta";
-      axios.get(url).then(function (response) {
-        me.boleta = response.data;
-        alert(response.data);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
     obtenerUsuario: function obtenerUsuario() {
       var me = this;
       var url = "/obtenerusuario";
@@ -3786,7 +3776,6 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
     },
     tomarPedido: function tomarPedido() {
       var me = this;
-      me.obtenerBoleta();
 
       if (this.arraySeleccion.length == 0) {
         return;
@@ -40851,7 +40840,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\app\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\carrito\resources\js\app.js */"./resources/js/app.js");
 
 
 /***/ })

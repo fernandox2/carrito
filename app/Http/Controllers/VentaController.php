@@ -9,24 +9,26 @@ use Illuminate\Support\Facades\DB;
 
 class VentaController extends Controller
 {
-    public function ultimaboleta()
-    {
-        $venta = Venta::max('boleta');
-        echo (intval($venta) + 1);
-    }
 
     public function store(Request $request)
     {
         try{
+
+            $boleta = DB::table('ventas')
+                ->where('empresa_id', $request->empresa_id)
+                ->max('boleta');
+
+            $boleta = intval($boleta) + 1;
             
             $venta = new Venta();
-            $venta->boleta = $request->boleta;
+            $venta->boleta = $boleta;
             $venta->usuario_id = $request->usuario_id;
             $venta->monto = $request->monto;
             $venta->empresa_id = $request->empresa_id;
             $venta->save();
 
             $id_venta = Venta::max('id');
+
 
             foreach ($request->arraySeleccion as $producto) {
                 
