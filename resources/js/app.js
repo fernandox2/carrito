@@ -5,7 +5,7 @@ window.Vue = require('vue');
 
 
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('panel-component', require('./components/PanelComponent.vue').default);
 Vue.component('ventas-component', require('./components/Venta.vue').default);
 Vue.component('empresa-component', require('./components/Empresa.vue').default);
 Vue.component('certifica-component', require('./components/Certifica.vue').default);

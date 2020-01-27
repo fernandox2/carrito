@@ -3,8 +3,7 @@
 @section('content')
 
 <template v-if="menu==0">
-@include('layouts.headers.cards')
-    <example-component></example-component>
+    <panel-component></panel-component>
 </template>
 
 <template v-if="menu==1">

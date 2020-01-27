@@ -25,6 +25,10 @@ Route::group(['middleware'=>['auth']],function(){
 
 	Route::get('/empresadelusuario', 'EmpresaController@buscarempresalogin');
 	Route::get('/obtenerusuario', 'UserController@obtenerUsuarioSesion');
+	Route::get('/ventasdeldia', 'VentaController@ventasdeldia');
+	Route::get('/productodelmes', 'ProductoController@productodelmes');
+	Route::get('/recaudaciondeldia', 'VentaController@recaudaciondeldia');
+	Route::get('/vendedordelmes', 'VentaController@vendedordelmes');
 
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);

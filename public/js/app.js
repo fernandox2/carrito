@@ -2600,15 +2600,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PanelComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PanelComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-currency-filter */ "./node_modules/vue-currency-filter/lib-out/VueCurrencyFilter.js");
+/* harmony import */ var vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2891,9 +2895,165 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["ruta"],
+  data: function data() {
+    return {
+      ventas_al_dia: 0,
+      producto_del_mes: "",
+      cantidad_vendida: 0,
+      recaudacion_al_minuto: null,
+      vendedor_del_mes: "",
+      ventas_del_vendedor: 0
+    };
+  },
+  computed: {},
+  methods: {
+    obtenerVentasDelDia: function obtenerVentasDelDia() {
+      var me = this;
+      var url = "/ventasdeldia";
+      axios.get(url).then(function (response) {
+        me.ventas_al_dia = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    obtenerProductoDelMes: function obtenerProductoDelMes() {
+      var me = this;
+      var url = "/productodelmes";
+      axios.get(url).then(function (response) {
+        me.producto_del_mes = response.data[0]['nombre'];
+        me.cantidad_vendida = response.data[0]['cantidad'];
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    recaudaciondeldia: function recaudaciondeldia() {
+      var me = this;
+      var url = "/recaudaciondeldia";
+      axios.get(url).then(function (response) {
+        me.recaudacion_al_minuto = response.data;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    vendedordelmes: function vendedordelmes() {
+      var me = this;
+      var url = "/vendedordelmes";
+      axios.get(url).then(function (response) {
+        me.vendedor_del_mes = response.data[0]['vendedor'];
+        me.ventas_del_vendedor = response.data[0]['ventas_realizadas'];
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    actualizar: function actualizar() {
+      setInterval(this.obtenerVentasDelDia, 1000);
+      setInterval(this.obtenerProductoDelMes, 1000);
+      setInterval(this.recaudaciondeldia, 1000);
+      setInterval(this.vendedordelmes, 1000);
+    }
+  },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    this.actualizar();
   }
 });
 
@@ -26604,10 +26764,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8& ***!
+  \*****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -26619,9 +26779,233 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _c("div", { staticClass: "header bg-gradient-warning pb-8 pt-5 pt-md-5" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "header-body" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-xl-3 col-lg-6" }, [
+              _c("div", { staticClass: "card card-stats mb-4 mb-xl-0" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "card-title text-uppercase text-muted mb-0"
+                        },
+                        [_vm._v("Ventas del Día")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                        _c("b", [_vm._v(_vm._s(_vm.ventas_al_dia))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(0)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(1)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-xl-3 col-lg-6" }, [
+              _c("div", { staticClass: "card card-stats mb-4 mb-xl-0" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "card-title text-uppercase text-muted mb-0"
+                        },
+                        [_vm._v("Producto del Mes")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                        _c("b", [_vm._v(_vm._s(_vm.producto_del_mes))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mt-3 mb-0 text-muted text-sm" }, [
+                    _vm._v("Presente en\n                                "),
+                    _c("span", { staticClass: "text-success mr-2" }, [
+                      _c("b", [_vm._v(" " + _vm._s(_vm.cantidad_vendida))])
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-nowrap" }, [
+                      _vm._v(" ventas")
+                    ])
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-xl-3 col-lg-6" }, [
+              _c("div", { staticClass: "card card-stats mb-4 mb-xl-0" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "card-title text-uppercase text-muted mb-0"
+                        },
+                        [_vm._v("Recaudación del Día")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                        _c("b", [
+                          _vm._v(
+                            "$" +
+                              _vm._s(
+                                _vm._f("currency")(_vm.recaudacion_al_minuto)
+                              )
+                          )
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(3)
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-xl-3 col-lg-6" }, [
+              _c("div", { staticClass: "card card-stats mb-4 mb-xl-0" }, [
+                _c("div", { staticClass: "card-body" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "card-title text-uppercase text-muted mb-0"
+                        },
+                        [_vm._v("Vendedor del Mes")]
+                      ),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "h2 font-weight-bold mb-0" }, [
+                        _c("b", [_vm._v(" " + _vm._s(_vm.vendedor_del_mes))])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(5)
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mt-3 mb-0 text-muted text-sm" }, [
+                    _c("span", { staticClass: "text-success mr-2" }, [
+                      _vm._v(" " + _vm._s(_vm.ventas_del_vendedor))
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-nowrap" }, [
+                      _vm._v(" ventas este mes")
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _vm._m(6)
+  ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-auto" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "icon icon-shape bg-danger text-white rounded-circle shadow"
+        },
+        [_c("i", { staticClass: "fas fa-check" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mt-3 mb-0 text-muted text-sm" }, [
+      _c("span", { staticClass: "text-success mr-2" }, [
+        _vm._v(" Actualizado ")
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-nowrap" }, [_vm._v("hace 1 seg.")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-auto" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "icon icon-shape bg-warning text-white rounded-circle shadow"
+        },
+        [_c("i", { staticClass: "fab fa-product-hunt" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-auto" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "icon icon-shape bg-yellow text-white rounded-circle shadow"
+        },
+        [_c("i", { staticClass: "fas fa-hand-holding-usd" })]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "mt-3 mb-0 text-muted text-sm" }, [
+      _c("span", { staticClass: "text-success mr-2" }, [_vm._v(" pesos")]),
+      _vm._v(" "),
+      _c("span", { staticClass: "text-nowrap" }, [_vm._v("hasta el momento")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-auto" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "icon icon-shape bg-info text-white rounded-circle shadow"
+        },
+        [_c("i", { staticClass: "fas fa-user-tie" })]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -26636,11 +27020,11 @@ var staticRenderFns = [
                   _c(
                     "h6",
                     { staticClass: "text-uppercase text-light ls-1 mb-1" },
-                    [_vm._v("Overview")]
+                    [_vm._v("Gráfico")]
                   ),
                   _vm._v(" "),
                   _c("h2", { staticClass: "text-white mb-0" }, [
-                    _vm._v("Sales value")
+                    _vm._v("Ventas por período")
                   ])
                 ]),
                 _vm._v(" "),
@@ -26671,7 +27055,7 @@ var staticRenderFns = [
                             },
                             [
                               _c("span", { staticClass: "d-none d-md-block" }, [
-                                _vm._v("Month")
+                                _vm._v("Mes")
                               ]),
                               _vm._v(" "),
                               _c("span", { staticClass: "d-md-none" }, [
@@ -26704,7 +27088,7 @@ var staticRenderFns = [
                             },
                             [
                               _c("span", { staticClass: "d-none d-md-block" }, [
-                                _vm._v("Week")
+                                _vm._v("Semana")
                               ]),
                               _vm._v(" "),
                               _c("span", { staticClass: "d-md-none" }, [
@@ -26739,10 +27123,10 @@ var staticRenderFns = [
                   _c(
                     "h6",
                     { staticClass: "text-uppercase text-muted ls-1 mb-1" },
-                    [_vm._v("Performance")]
+                    [_vm._v("Stock")]
                   ),
                   _vm._v(" "),
-                  _c("h2", { staticClass: "mb-0" }, [_vm._v("Total orders")])
+                  _c("h2", { staticClass: "mb-0" }, [_vm._v("de productos")])
                 ])
               ])
             ]),
@@ -26810,100 +27194,19 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    /argon/\n                                "
+                          "\n                                        /argon/\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    4,569\n                                "
+                          "\n                                        4,569\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    340\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("i", {
-                          staticClass: "fas fa-arrow-up text-success mr-3"
-                        }),
-                        _vm._v(" 46,53%\n                                ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                                    /argon/index.html\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    3,985\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    319\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("i", {
-                          staticClass: "fas fa-arrow-down text-warning mr-3"
-                        }),
-                        _vm._v(" 46,53%\n                                ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                                    /argon/charts.html\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    3,513\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    294\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("i", {
-                          staticClass: "fas fa-arrow-down text-warning mr-3"
-                        }),
-                        _vm._v(" 36,49%\n                                ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("tr", [
-                      _c("th", { attrs: { scope: "row" } }, [
-                        _vm._v(
-                          "\n                                    /argon/tables.html\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    2,050\n                                "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          "\n                                    147\n                                "
+                          "\n                                        340\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -26911,26 +27214,107 @@ var staticRenderFns = [
                         _c("i", {
                           staticClass: "fas fa-arrow-up text-success mr-3"
                         }),
-                        _vm._v(" 50,87%\n                                ")
+                        _vm._v(" 46,53%\n                                    ")
                       ])
                     ]),
                     _vm._v(" "),
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    /argon/profile.html\n                                "
+                          "\n                                        /argon/index.html\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    1,795\n                                "
+                          "\n                                        3,985\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    190\n                                "
+                          "\n                                        319\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("i", {
+                          staticClass: "fas fa-arrow-down text-warning mr-3"
+                        }),
+                        _vm._v(" 46,53%\n                                    ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(
+                          "\n                                        /argon/charts.html\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        3,513\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        294\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("i", {
+                          staticClass: "fas fa-arrow-down text-warning mr-3"
+                        }),
+                        _vm._v(" 36,49%\n                                    ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(
+                          "\n                                        /argon/tables.html\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        2,050\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        147\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("i", {
+                          staticClass: "fas fa-arrow-up text-success mr-3"
+                        }),
+                        _vm._v(" 50,87%\n                                    ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("tr", [
+                      _c("th", { attrs: { scope: "row" } }, [
+                        _vm._v(
+                          "\n                                        /argon/profile.html\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        1,795\n                                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                        190\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -26938,7 +27322,7 @@ var staticRenderFns = [
                         _c("i", {
                           staticClass: "fas fa-arrow-down text-danger mr-3"
                         }),
-                        _vm._v(" 46,53%\n                                ")
+                        _vm._v(" 46,53%\n                                    ")
                       ])
                     ])
                   ])
@@ -26992,13 +27376,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    Facebook\n                                "
+                          "\n                                        Facebook\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    1,480\n                                "
+                          "\n                                        1,480\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -27034,13 +27418,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    Facebook\n                                "
+                          "\n                                        Facebook\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    5,480\n                                "
+                          "\n                                        5,480\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -27076,13 +27460,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    Google\n                                "
+                          "\n                                        Google\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    4,807\n                                "
+                          "\n                                        4,807\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -27118,13 +27502,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    Instagram\n                                "
+                          "\n                                        Instagram\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    3,678\n                                "
+                          "\n                                        3,678\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -27159,13 +27543,13 @@ var staticRenderFns = [
                     _c("tr", [
                       _c("th", { attrs: { scope: "row" } }, [
                         _vm._v(
-                          "\n                                    twitter\n                                "
+                          "\n                                        twitter\n                                    "
                         )
                       ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          "\n                                    2,645\n                                "
+                          "\n                                        2,645\n                                    "
                         )
                       ]),
                       _vm._v(" "),
@@ -40382,7 +40766,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue")["default"]);
+Vue.component('panel-component', __webpack_require__(/*! ./components/PanelComponent.vue */ "./resources/js/components/PanelComponent.vue")["default"]);
 Vue.component('ventas-component', __webpack_require__(/*! ./components/Venta.vue */ "./resources/js/components/Venta.vue")["default"]);
 Vue.component('empresa-component', __webpack_require__(/*! ./components/Empresa.vue */ "./resources/js/components/Empresa.vue")["default"]);
 Vue.component('certifica-component', __webpack_require__(/*! ./components/Certifica.vue */ "./resources/js/components/Certifica.vue")["default"]);
@@ -40626,17 +41010,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue ***!
-  \******************************************************/
+/***/ "./resources/js/components/PanelComponent.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/PanelComponent.vue ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony import */ var _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExampleComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
+/* harmony import */ var _PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PanelComponent.vue?vue&type=template&id=141563f8& */ "./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8&");
+/* harmony import */ var _PanelComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PanelComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/PanelComponent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -40646,9 +41030,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _PanelComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -40658,38 +41042,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/ExampleComponent.vue"
+component.options.__file = "resources/js/components/PanelComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/PanelComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/PanelComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PanelComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./PanelComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PanelComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PanelComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8& ***!
+  \***********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./PanelComponent.vue?vue&type=template&id=141563f8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/PanelComponent.vue?vue&type=template&id=141563f8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PanelComponent_vue_vue_type_template_id_141563f8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

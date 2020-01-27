@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Producto;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 use App\Http\Controllers\Controller;
@@ -110,6 +111,33 @@ class ProductoController extends Controller
  
         $producto = Producto::findOrFail($request->id);
         $producto->delete();
+    }
+
+    public function productodelmes()
+    {
+        $mes = date("m");
+        if ($mes == "02")
+        {
+            $fin = date("Y-m-"."28");
+        }else{
+            $fin = date("Y-m-"."30");
+        }
+        $inicio = date("Y-m-"."01");
+        
+
+        $id_empresa =  Auth::user()->empresa_id;
+
+        $productos = DB::table('detalles')
+        ->join('productos', 'productos.id', '=', 'detalles.producto_id')
+        ->join('ventas', 'ventas.id', '=', 'detalles.venta_id')
+        ->where('ventas.empresa_id', $id_empresa)
+        ->whereBetween('detalles.created_at', [$inicio." 00:00:00", $fin." 23:59:59"])
+        ->select(DB::raw('count(detalles.producto_id) as cantidad, detalles.producto_id, productos.nombre'))
+        ->groupBy('detalles.producto_id', 'productos.nombre')
+        ->orderBy('cantidad', 'desc')
+        ->get();
+
+        echo $productos;
     }
  
 }
