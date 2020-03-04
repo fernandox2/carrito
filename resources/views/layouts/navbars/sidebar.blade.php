@@ -78,7 +78,7 @@
             </form>
             <!-- Navigation -->
             <ul class="navbar-nav">
-                <li @click="menu=0" class="nav-item">
+                <li @click.prevent="menu=0" class="nav-item">
                     <a class="nav-link" href="{{ route('home') }}">
                         <i class="ni ni-tv-2 text-default"></i> {{ __('Mi Negocio') }}
                     </a>
@@ -127,12 +127,7 @@
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-            <div class="media align-items-center">
-                        <span class="avatar avatar-sm rounded-circle">
-                            <img alt="Image placeholder" src="{{ asset('argon') }}/img/theme/team-4-800x800.jpg">
-                        </span>
 
-                    </div>
                     
             <!-- Navigation -->
 
