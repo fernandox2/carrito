@@ -18,6 +18,10 @@
     <empresa-component></empresa-component>
 </template>
 
+<template v-if="menu==4">
+    <reportes-component></reportes-component>
+</template>
+
 @endsection
 
 @push('js')

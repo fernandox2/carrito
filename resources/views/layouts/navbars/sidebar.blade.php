@@ -101,35 +101,17 @@
                             </a>
                         </li>
                     @endif
-                <li class="nav-item">
-                    <a class="nav-link" href="#navbar-reportes" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-chart-bar-32 text-default"></i>{{ __('Informes') }}
-                    </a>
 
-                    <div class="collapse" id="navbar-reportes">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profile.edit') }}">
-                                    {{ __('de Ventas') }}
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
-                                    {{ __('de Productos') }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-
+                    <li @click.prevent="menu=4" class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="ni ni-chart-bar-32 text-default"></i>{{ __('Informe de Ventas') }}
+                        </a>
+                    </li>
 
             </ul>
             <!-- Divider -->
             <hr class="my-3">
             <!-- Heading -->
-
-                    
-            <!-- Navigation -->
 
         </div>
     </div>
