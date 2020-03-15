@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 
 class VentaController extends Controller
 {
+    public function index(){
+        return redirect('/home');
+    }
 
     public function store(Request $request)
     {
@@ -50,6 +53,24 @@ class VentaController extends Controller
 
     }
 
+    public function ventasPorFecha(Request $request)
+    {
+
+        $id_empresa =  Auth::user()->empresa_id;
+        
+        $total = DB::table('ventas')
+        ->where('ventas.empresa_id', $id_empresa)
+        ->whereBetween('ventas.created_at', [$request->inicio." 00:00:00", $request->fin." 23:59:59"])
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as numero_ventas'),  DB::raw('SUM(monto) as monto_recaudado'))
+        ->groupBy('date')
+        ->get();
+
+
+        echo $total;
+
+    }
+
+
 
     public function ventasdeldia()
     {
@@ -59,7 +80,7 @@ class VentaController extends Controller
 
         $ventas = DB::table('ventas')
         ->where('empresa_id',$id_empresa)
-        ->whereBetween('created_at', [$hoy." 00:00:00", $hoy." 23:59:59"])
+        ->whereBetween('created_at', [$hoy." 06:00:00", date("d-m-Y",strtotime($hoy."+ 1 days"))." 05:59:59"])
         ->count();
 
         echo $ventas;

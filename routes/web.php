@@ -29,6 +29,7 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::get('/productodelmes', 'ProductoController@productodelmes');
 	Route::get('/recaudaciondeldia', 'VentaController@recaudaciondeldia');
 	Route::get('/vendedordelmes', 'VentaController@vendedordelmes');
+	Route::post('/ventasporfecha', 'VentaController@ventasPorFecha');
 
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);
