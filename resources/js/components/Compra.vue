@@ -8,27 +8,67 @@
         >Mantenedor de Compras</a>
       </div>
 
-      <!-- Table -->
-      <div class="row">
-        <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
+      <div class="card shadow">
+        <div class="card-header border-0">
+            <div class="row">
+              <div class="col">
+
               <button
                 @click="abrirModal('compra','registrar')"
                 type="button"
                 class="btn btn-default float-left"
               >Nuevo</button>
 
-              <input
-                v-on:change="listarCompra(1,buscar)"
-                type="text"
-                v-model="buscar"
-                class="form-control float-right"
-                placeholder="Buscar ..."
-                style="max-width:300px;"
-              />
+            </div>
+                      <div class="col">
+
+              <!-- Calendario Inicio -->
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ni ni-calendar-grid-58"></i>
+                    </span>
+                  </div>
+                  <input
+                    class="form-control"
+                    v-model="inicio"
+                    placeholder="Select date"
+                    type="date"
+                  />
+                </div>
+              </div>
+
             </div>
 
+            <div class="col">
+              <!-- Calendario Fin -->
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="ni ni-calendar-grid-58"></i>
+                    </span>
+                  </div>
+                  <input
+                    class="form-control"
+                    v-model="fin"
+                    placeholder="Seleccione Fecha"
+                    type="date"
+                  />
+                </div>
+              </div>
+            </div>
+                        <div class="col">                 
+              <button class="btn btn-icon btn-3 btn-success" type="button" @click.prevent="listarComprasFecha()">
+                <span class="btn-inner--icon">
+                  <i class="ni ni-button-play"></i>
+                </span>
+
+              </button>
+            </div>
+          </div>
+          <div class="row">
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
@@ -139,6 +179,19 @@
           </div>
           <div class="modal-body">
             <form action method="post" enctype="multipart/form-data" class="form-horizontal">
+              
+              <div class="form-group row">
+                <label class="col-md-3 form-control-label" for="text-input">Fecha</label>
+                <div class="col-md-9">
+                  <input
+                    type="date"
+                    v-model="fecha"
+                    class="form-control"
+                    placeholder="01/01/2020"
+                  />
+                </div>
+              </div>
+
               <div class="form-group row">
                 <label class="col-md-3 form-control-label" for="text-input">Compra</label>
                 <div class="col-md-9">
@@ -200,6 +253,9 @@ export default {
   data() {
     return {
       id: 0,
+      inicio: null,
+      fin: null,
+      fecha: null,
       detalle: "",
       monto: "",
       empresa_id: null,
@@ -252,7 +308,26 @@ export default {
   },
   methods: {
 
+    listarComprasFecha(){
+      let me = this;
+      me.total = 0;
+      me.total_invertido = 0;
 
+      axios.post("/comprasporfecha", {
+          inicio: me.inicio,
+          fin: me.fin
+        })
+        .then(function(response) {
+          var respuesta = response.data;
+          me.arrayCompra = respuesta.compras.data;
+          me.pagination = respuesta.pagination;
+
+
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    },
     listarCompra(page, buscar, criterio) {
       let me = this;
       var url =
@@ -304,7 +379,8 @@ export default {
         .post("/compra/registrar", {
           compra: this.detalle,
           monto: this.monto,
-          empresa_id: this.empresa_id
+          empresa_id: this.empresa_id,
+          fecha: this.fecha
           
         })
         .then(function(response) {
@@ -332,7 +408,8 @@ export default {
           compra: this.detalle,
           monto: this.monto,
           empresa_id: this.empresa_id,
-          id: this.id
+          id: this.id,
+          fecha: this.fecha
         })
         .then(function(response) {
           me.cerrarModal();
@@ -396,6 +473,7 @@ export default {
       this.tituloModal = "";
       this.detalle = "";
       this.monto = "";
+      this.fecha = null;
     },
     abrirModal(modelo, accion, data = []) {
       switch (modelo) {
@@ -411,6 +489,7 @@ export default {
             }
 
             case "actualizar": {
+              
               this.modal = 1;
               this.tituloModal = "Actualizar compra";
               this.tipoAccion = 2;
@@ -418,6 +497,7 @@ export default {
               this.detalle = data["detalle"];
               this.monto = data["monto"];
               this.empresa_id = data["empresa_id"];
+              this.fecha = data["date"];
               break;
             }
           }

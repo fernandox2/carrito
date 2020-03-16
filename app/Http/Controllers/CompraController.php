@@ -53,6 +53,7 @@ class CompraController extends Controller
         $compra->compra = $request->compra;
         $compra->monto = $request->monto;
         $compra->empresa_id = $request->empresa_id;
+        $compra->created_at = $request->fecha;
         $compra->save();
     }
 
@@ -62,6 +63,7 @@ class CompraController extends Controller
         $compra = Compra::where('id', $request->id)->firstOrFail();      
         $compra->compra = $request->compra;
         $compra->monto = $request->monto;
+        $compra->created_at = $request->fecha;
         $compra->save();
 
     }
@@ -72,6 +74,30 @@ class CompraController extends Controller
  
         $compra = Compra::findOrFail($request->id);
         $compra->delete();
+    }
+
+    public function comprasPorFecha(Request $request)
+    {
+
+        $id_empresa =  Auth::user()->empresa_id;
+  
+        $compras = Compra::where('empresa_id', '=', Auth::user()->empresa_id)
+        ->whereBetween('compras.created_at', [$request->inicio." 00:00:00", $request->fin." 23:59:59"])
+        ->select(DB::raw('DATE(created_at) as date'), DB::raw('monto as monto'), DB::raw('compra as detalle'), DB::raw('id as id'))
+        ->orderBy('date', 'desc')->paginate(10);
+
+        return [
+            'pagination' => [
+                'total'        => $compras->total(),
+                'current_page' => $compras->currentPage(),
+                'per_page'     => $compras->perPage(),
+                'last_page'    => $compras->lastPage(),
+                'from'         => $compras->firstItem(),
+                'to'           => $compras->lastItem(),
+            ],
+            'compras' => $compras
+        ];
+
     }
 
  

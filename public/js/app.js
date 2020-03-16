@@ -2429,6 +2429,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
@@ -2437,6 +2490,9 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
   data: function data() {
     return {
       id: 0,
+      inicio: null,
+      fin: null,
+      fecha: null,
       detalle: "",
       monto: "",
       empresa_id: null,
@@ -2492,6 +2548,21 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
     }
   },
   methods: {
+    listarComprasFecha: function listarComprasFecha() {
+      var me = this;
+      me.total = 0;
+      me.total_invertido = 0;
+      axios.post("/comprasporfecha", {
+        inicio: me.inicio,
+        fin: me.fin
+      }).then(function (response) {
+        var respuesta = response.data;
+        me.arrayCompra = respuesta.compras.data;
+        me.pagination = respuesta.pagination;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
     listarCompra: function listarCompra(page, buscar, criterio) {
       var me = this;
       var url = "/compra?page=" + page + "&buscar=" + buscar + "&criterio=" + criterio;
@@ -2528,7 +2599,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       axios.post("/compra/registrar", {
         compra: this.detalle,
         monto: this.monto,
-        empresa_id: this.empresa_id
+        empresa_id: this.empresa_id,
+        fecha: this.fecha
       }).then(function (response) {
         me.cerrarModal();
         me.listarCompra(1, "", "compra");
@@ -2551,7 +2623,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
         compra: this.detalle,
         monto: this.monto,
         empresa_id: this.empresa_id,
-        id: this.id
+        id: this.id,
+        fecha: this.fecha
       }).then(function (response) {
         me.cerrarModal();
         me.listarCompra(1, "", "compra");
@@ -2599,6 +2672,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       this.tituloModal = "";
       this.detalle = "";
       this.monto = "";
+      this.fecha = null;
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -2626,6 +2700,7 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
                   this.detalle = data["detalle"];
                   this.monto = data["monto"];
                   this.empresa_id = data["empresa_id"];
+                  this.fecha = data["date"];
                   break;
                 }
             }
@@ -26348,10 +26423,10 @@ var render = function() {
     _c("div", { staticClass: "container-fluid mt--7" }, [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col" }, [
-          _c("div", { staticClass: "card shadow" }, [
-            _c("div", { staticClass: "card-header border-0" }, [
+      _c("div", { staticClass: "card shadow" }, [
+        _c("div", { staticClass: "card-header border-0" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col" }, [
               _c(
                 "button",
                 {
@@ -26364,41 +26439,94 @@ var render = function() {
                   }
                 },
                 [_vm._v("Nuevo")]
-              ),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.buscar,
-                    expression: "buscar"
-                  }
-                ],
-                staticClass: "form-control float-right",
-                staticStyle: { "max-width": "300px" },
-                attrs: { type: "text", placeholder: "Buscar ..." },
-                domProps: { value: _vm.buscar },
-                on: {
-                  change: function($event) {
-                    return _vm.listarCompra(1, _vm.buscar)
-                  },
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.buscar = $event.target.value
-                  }
-                }
-              })
+              )
             ]),
             _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.inicio,
+                        expression: "inicio"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { placeholder: "Select date", type: "date" },
+                    domProps: { value: _vm.inicio },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.inicio = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("div", { staticClass: "input-group" }, [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.fin,
+                        expression: "fin"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { placeholder: "Seleccione Fecha", type: "date" },
+                    domProps: { value: _vm.fin },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.fin = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-icon btn-3 btn-success",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      return _vm.listarComprasFecha()
+                    }
+                  }
+                },
+                [_vm._m(3)]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
             _c("div", { staticClass: "table-responsive" }, [
               _c(
                 "table",
                 { staticClass: "table align-items-center table-flush" },
                 [
-                  _vm._m(1),
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "tbody",
@@ -26418,7 +26546,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", { staticClass: "text-right" }, [
                           _c("div", { staticClass: "dropdown" }, [
-                            _vm._m(2, true),
+                            _vm._m(5, true),
                             _vm._v(" "),
                             _c(
                               "div",
@@ -26632,6 +26760,41 @@ var render = function() {
                           staticClass: "col-md-3 form-control-label",
                           attrs: { for: "text-input" }
                         },
+                        [_vm._v("Fecha")]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fecha,
+                              expression: "fecha"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "date", placeholder: "01/01/2020" },
+                          domProps: { value: _vm.fecha },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fecha = $event.target.value
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group row" }, [
+                      _c(
+                        "label",
+                        {
+                          staticClass: "col-md-3 form-control-label",
+                          attrs: { for: "text-input" }
+                        },
                         [_vm._v("Compra")]
                       ),
                       _vm._v(" "),
@@ -26797,6 +26960,34 @@ var staticRenderFns = [
         },
         [_vm._v("Mantenedor de Compras")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "ni ni-calendar-grid-58" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-prepend" }, [
+      _c("span", { staticClass: "input-group-text" }, [
+        _c("i", { staticClass: "ni ni-calendar-grid-58" })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "btn-inner--icon" }, [
+      _c("i", { staticClass: "ni ni-button-play" })
     ])
   },
   function() {

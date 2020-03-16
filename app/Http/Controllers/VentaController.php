@@ -62,7 +62,7 @@ class VentaController extends Controller
         
         $total = DB::table('ventas')
         ->where('ventas.empresa_id', $id_empresa)
-        ->whereBetween('ventas.created_at', [$request->inicio." 00:00:00", $request->fin." 23:59:59"])
+        ->whereBetween('ventas.created_at', [$request->inicio." 06:00:00", date("Y-m-d",strtotime($request->fin."+ 1 days"))." 05:59:59"])
         ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as numero_ventas'),  DB::raw('SUM(monto) as monto_recaudado'))
         ->groupBy('date')
         ->get();

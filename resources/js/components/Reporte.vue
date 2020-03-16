@@ -8,7 +8,7 @@
         >Mantenedor de Productos</a>
       </div>
 
-      <!-- Table -->
+
     <div class="card shadow">
       
       <div class="card-header border-0">
