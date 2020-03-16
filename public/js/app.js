@@ -4003,6 +4003,11 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       }).then(function (response) {
         var res = response.data;
         res.forEach(function (e) {
+          axios.post("/ventasporfecha2", {
+            fecha: e.date
+          }).then(function (response) {
+            var dato = response.data;
+          });
           me.total = me.total + parseInt(e.monto_recaudado);
           me.total_ventas = me.total_ventas + e.numero_ventas;
         });
@@ -28910,7 +28915,10 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "$" + _vm._s(_vm._f("currency")(venta.invertido))
+                              "$" +
+                                _vm._s(
+                                  _vm._f("currency")(venta.monto_invertido)
+                                )
                             )
                           ]),
                           _vm._v(" "),
@@ -28961,7 +28969,7 @@ var staticRenderFns = [
           staticClass:
             "h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
         },
-        [_vm._v("Mantenedor de Productos")]
+        [_vm._v("Informe de Ventas")]
       )
     ])
   },

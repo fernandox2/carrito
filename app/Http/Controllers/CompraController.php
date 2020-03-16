@@ -100,5 +100,22 @@ class CompraController extends Controller
 
     }
 
+
+    public function comprasPorFecha2(Request $request)
+    {
+
+        $id_empresa =  Auth::user()->empresa_id;
+        
+        $compras = DB::table('compras')
+        ->where('compras.empresa_id', $id_empresa)
+        ->where('DATE(compras.created_at) as fecha', $request->fecha)
+        ->select(DB::raw('count(*) as n_compras'),  DB::raw('SUM(compras.monto) as monto'))
+        ->groupBy('date')
+        ->get();
+
+        echo $compras;
+
+    }
+
  
 }

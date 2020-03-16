@@ -31,7 +31,7 @@ Route::group(['middleware'=>['auth']],function(){
 	Route::get('/vendedordelmes', 'VentaController@vendedordelmes');
 	Route::post('/ventasporfecha', 'VentaController@ventasPorFecha');
 	Route::post('/comprasporfecha', 'CompraController@comprasPorFecha');
-
+	Route::post('/comprasporfecha2', 'CompraController@comprasPorFecha2');
 
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

@@ -5,7 +5,7 @@
       <div class="header-body">
         <a
           class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-        >Mantenedor de Productos</a>
+        >Informe de Ventas</a>
       </div>
 
 
@@ -92,7 +92,7 @@
                         {{ venta.numero_ventas}} 
                     </td>
                     <td>${{venta.monto_recaudado | currency}}</td>
-                    <td>${{venta.invertido | currency}}</td>
+                    <td>${{venta.monto_invertido | currency}}</td>
                     <td>${{venta.ganado | currency}}</td>
                   </tr>
                   <tr>
@@ -150,6 +150,11 @@ export default {
         .then(function(response) {
           var res = response.data;
           res.forEach(e => {
+            axios.post("/ventasporfecha2", {
+              fecha: e.date
+            }).then(function(response){
+              var dato = response.data;
+            })
             me.total = me.total + parseInt(e.monto_recaudado);
             me.total_ventas = me.total_ventas + e.numero_ventas;
           });
