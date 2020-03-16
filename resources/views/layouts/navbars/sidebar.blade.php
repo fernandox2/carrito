@@ -94,6 +94,13 @@
                         <i class="ni ni-cart text-default"></i> {{ __('Productos') }}
                     </a>
                 </li>
+                    @if(Auth::user()->rol == 'Supervisor' || Auth::user()->rol == 'Administrador')
+                        <li @click.prevent="menu=5" class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="ni ni-bag-17 text-default"></i> {{ __('Compras') }}
+                            </a>
+                        </li>
+                    @endif
                     @if(Auth::user()->rol == 'Administrador')
                         <li @click.prevent="menu=3" class="nav-item">
                             <a class="nav-link" href="#">

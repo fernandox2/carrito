@@ -176,17 +176,19 @@ export default {
         });
     },
 
-    actualizar: function () {
-      setInterval(this.obtenerVentasDelDia, 1000);
-      setInterval(this.obtenerProductoDelMes, 1000);
-      setInterval(this.recaudaciondeldia, 1000);
-      setInterval(this.vendedordelmes, 1000);
-      
-   }
+
 
   },
+   created: function(){
+      this.obtenerVentasDelDia();
+      this.obtenerProductoDelMes();
+      this.recaudaciondeldia();
+      this.vendedordelmes();
+    },
   mounted() {
-      this.actualizar();
+      
+
+      
   }
 };
 </script>

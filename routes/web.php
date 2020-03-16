@@ -59,7 +59,13 @@ Route::group(['middleware'=>['auth']],function(){
 		Route::put('/producto/eliminar', 'ProductoController@eliminar');
 		Route::put('/producto/activar', 'ProductoController@activar');
 
-		
+		Route::get('/compra', 'CompraController@index');
+		Route::post('/compra/registrar', 'CompraController@store');
+		Route::post('/compra/revisarFirma', 'CompraController@firmaOK');
+		Route::post('/compra/registrarFirma', 'CompraController@storeFirma');
+		Route::put('/compra/actualizar', 'CompraController@update');
+		Route::put('/compra/eliminar', 'CompraController@eliminar');
+		Route::put('/compra/activar', 'CompraController@activar');
  
     });
  

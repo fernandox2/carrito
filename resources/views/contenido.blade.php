@@ -22,6 +22,10 @@
     <reportes-component></reportes-component>
 </template>
 
+<template v-if="menu==5">
+    <compras-component></compras-component>
+</template>
+
 @endsection
 
 @push('js')

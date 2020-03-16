@@ -11,6 +11,7 @@ Vue.component('empresa-component', require('./components/Empresa.vue').default);
 Vue.component('certifica-component', require('./components/Certifica.vue').default);
 Vue.component('productos-component', require('./components/Producto.vue').default);
 Vue.component('reportes-component', require('./components/Reporte.vue').default);
+Vue.component('compras-component', require('./components/Compra.vue').default);
 
 
 

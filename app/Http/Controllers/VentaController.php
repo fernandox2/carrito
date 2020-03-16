@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+date_default_timezone_set('America/Santiago');
+
 class VentaController extends Controller
 {
     public function index(){
@@ -71,16 +73,16 @@ class VentaController extends Controller
     }
 
 
-
     public function ventasdeldia()
     {
         $hoy = date("Y-m-d");
+        $hoy2 = date("Y-m-d",strtotime($hoy."+ 1 days"));
 
         $id_empresa =  Auth::user()->empresa_id;
 
         $ventas = DB::table('ventas')
         ->where('empresa_id',$id_empresa)
-        ->whereBetween('created_at', [$hoy." 06:00:00", date("d-m-Y",strtotime($hoy."+ 1 days"))." 05:59:59"])
+        ->whereBetween('created_at', [$hoy." 06:00:00", $hoy2." 05:59:59"])
         ->count();
 
         echo $ventas;
@@ -90,12 +92,13 @@ class VentaController extends Controller
     public function recaudaciondeldia()
     {
         $hoy = date("Y-m-d");
-
+        $hoy2 = date("Y-m-d",strtotime($hoy."+ 1 days"));
+        
         $id_empresa =  Auth::user()->empresa_id;
 
         $total = DB::table('ventas')
         ->where('empresa_id',$id_empresa)
-        ->whereBetween('created_at', [$hoy." 00:00:00", $hoy." 23:59:59"])
+        ->whereBetween('created_at', [$hoy." 06:00:00", $hoy2." 05:59:59"])
         ->sum('monto');
 
         echo $total;
