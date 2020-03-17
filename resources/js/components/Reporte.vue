@@ -93,14 +93,14 @@
                     </td>
                     <td>${{venta.monto_recaudado | currency}}</td>
                     <td>${{venta.monto_invertido | currency}}</td>
-                    <td>${{venta.ganado | currency}}</td>
+                    <td>${{venta.monto_recaudado - venta.monto_invertido | currency}}</td>
                   </tr>
                   <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><b>Total:</b></td>
-                    <td><h5>${{ total | currency}}</h5></td>
+                    <td><h5 class="text-red">TOTALES</h5></td>
+                    <td><h5 class="text-red">{{ total_ventas | currency}}</h5></td>
+                    <td><h5 class="text-red">${{ total_recaudado | currency}}</h5></td>
+                    <td><h5 class="text-red">${{ total_invertido | currency}}</h5></td>
+                    <td><h5 class="text-red">${{ total | currency}}</h5></td>
                   </tr>
                 </tbody>
               </table>
@@ -129,6 +129,8 @@ export default {
       fin: null,
       empresa_id: null,
       total: 0,
+      total_recaudado : 0,
+      total_invertido : 0,
       total_ventas: 0,
       arrayVenta: []
     };
@@ -136,13 +138,12 @@ export default {
   computed: {
     isActived: function() {},
     },
-  methods: {
-    
+  methods: {  
     listarVentas() {
-      
       let me = this;
       me.total = 0;
-      me.total_ventas = 0,
+      me.total_ventas = 0;
+      me.total_recaudado = 0;
       axios.post("/ventasporfecha", {
           inicio: this.inicio,
           fin: this.fin
@@ -150,12 +151,13 @@ export default {
         .then(function(response) {
           var res = response.data;
           res.forEach(e => {
-            axios.post("/ventasporfecha2", {
-              fecha: e.date
-            }).then(function(response){
-              var dato = response.data;
-            })
-            me.total = me.total + parseInt(e.monto_recaudado);
+            if (e.monto_invertido == null ){
+              e.monto_invertido = 0;
+            }
+            var ganancia = parseInt(e.monto_recaudado) - parseInt(e.monto_invertido);
+            me.total = me.total + ganancia ;
+            me.total_recaudado = me.total_recaudado + parseInt(e.monto_recaudado);
+            me.total_invertido = me.total_invertido + parseInt(e.monto_invertido);
             me.total_ventas = me.total_ventas + e.numero_ventas;
           });
           me.arrayVenta = res;

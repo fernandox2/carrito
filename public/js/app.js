@@ -3986,6 +3986,8 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
       fin: null,
       empresa_id: null,
       total: 0,
+      total_recaudado: 0,
+      total_invertido: 0,
       total_ventas: 0,
       arrayVenta: []
     };
@@ -3997,18 +3999,22 @@ Vue.use(vue_currency_filter__WEBPACK_IMPORTED_MODULE_1___default.a);
     listarVentas: function listarVentas() {
       var me = this;
       me.total = 0;
-      me.total_ventas = 0, axios.post("/ventasporfecha", {
+      me.total_ventas = 0;
+      me.total_recaudado = 0;
+      axios.post("/ventasporfecha", {
         inicio: this.inicio,
         fin: this.fin
       }).then(function (response) {
         var res = response.data;
         res.forEach(function (e) {
-          axios.post("/ventasporfecha2", {
-            fecha: e.date
-          }).then(function (response) {
-            var dato = response.data;
-          });
-          me.total = me.total + parseInt(e.monto_recaudado);
+          if (e.monto_invertido == null) {
+            e.monto_invertido = 0;
+          }
+
+          var ganancia = parseInt(e.monto_recaudado) - parseInt(e.monto_invertido);
+          me.total = me.total + ganancia;
+          me.total_recaudado = me.total_recaudado + parseInt(e.monto_recaudado);
+          me.total_invertido = me.total_invertido + parseInt(e.monto_invertido);
           me.total_ventas = me.total_ventas + e.numero_ventas;
         });
         me.arrayVenta = res;
@@ -28924,23 +28930,47 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(
-                              "$" + _vm._s(_vm._f("currency")(venta.ganado))
+                              "$" +
+                                _vm._s(
+                                  _vm._f("currency")(
+                                    venta.monto_recaudado -
+                                      venta.monto_invertido
+                                  )
+                                )
                             )
                           ])
                         ])
                       }),
                       _vm._v(" "),
                       _c("tr", [
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
-                        _c("td"),
-                        _vm._v(" "),
                         _vm._m(6),
                         _vm._v(" "),
                         _c("td", [
-                          _c("h5", [
+                          _c("h5", { staticClass: "text-red" }, [
+                            _vm._v(_vm._s(_vm._f("currency")(_vm.total_ventas)))
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("h5", { staticClass: "text-red" }, [
+                            _vm._v(
+                              "$" +
+                                _vm._s(_vm._f("currency")(_vm.total_recaudado))
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("h5", { staticClass: "text-red" }, [
+                            _vm._v(
+                              "$" +
+                                _vm._s(_vm._f("currency")(_vm.total_invertido))
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("h5", { staticClass: "text-red" }, [
                             _vm._v("$" + _vm._s(_vm._f("currency")(_vm.total)))
                           ])
                         ])
@@ -29048,7 +29078,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("b", [_vm._v("Total:")])])
+    return _c("td", [
+      _c("h5", { staticClass: "text-red" }, [_vm._v("TOTALES")])
+    ])
   }
 ]
 render._withStripped = true
