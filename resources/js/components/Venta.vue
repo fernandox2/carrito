@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="header bg-gradient-warning pb-8 pt-5 pt-md-2"></div>
     <div class="container-fluid mt--7">
       <div class="header-body">
@@ -176,6 +177,7 @@ import Swal from "sweetalert2";
 import VueCurrencyFilter from "vue-currency-filter";
 
 Vue.use(VueCurrencyFilter);
+Vue.use("../js/Impresora.js");
 export default {
   props: ["ruta"],
   data() {
@@ -374,6 +376,32 @@ export default {
       me.listarProducto(page, buscar, criterio);
     },
 
+    imprimirElemento(elemento, total){
+      var ventana = window.open('', 'PRINT', 'height=400,width=400');
+      ventana.document.write('<html><head><title>Ticket de Venta</title></head><body>');
+      ventana.document.write('####################');
+      ventana.document.write('<h1>TICKET DE VENTA</h1>');
+      ventana.document.write('####################');
+      ventana.document.write('<br><table>');
+      ventana.document.write(elemento);
+      ventana.document.write('<br>');
+      ventana.document.write('####################');
+      ventana.document.write('<br><b>Total : ' + total +'</b>');
+      ventana.document.write('</table></body></html>');
+      ventana.document.write('<br>');
+      ventana.document.write('######### FIN ###########');
+      ventana.document.write('<br>');
+      ventana.document.write('<br>');
+      ventana.document.write('<br>');
+      ventana.document.write('<br>');
+      ventana.document.write('<hr>');
+      ventana.document.close();
+      ventana.focus();
+      ventana.print();
+      ventana.close();
+      
+    },
+
     tomarPedido() {
       
       let me = this;
@@ -381,7 +409,9 @@ export default {
       if (this.arraySeleccion.length == 0) {
         return;
       }
-
+      var productos_html = "";
+      var total_productos = 0;
+      var total_cantidad = 0;
       axios
         .post("/venta/registrar", {
           boleta: me.boleta,
@@ -393,11 +423,25 @@ export default {
         .then(function(response) {
           if(response.data)
           {
-            Swal.fire({
-            icon: "success",
-            title: "Excelente ...",
-            text: "El pedido fue ingresdo correctamente !"
-          });
+
+            me.arraySeleccion.forEach(producto => {
+              total_productos = total_productos + parseInt(producto.precio);
+              total_cantidad =  total_cantidad + parseInt(producto.cantidad);
+              productos_html = productos_html  + "<hr>" + producto.cantidad + "  "+ producto.nombre +"  $ "+ producto.precio  +"";
+            });
+
+          if(me.imprimirElemento(productos_html, total_productos))
+          {
+            
+          
+          }
+         
+         
+         // var doc = window.open('../ticket.html', "nuevo", "directories=no, location=no, menubar=no, scrollbars=yes, statusbar=no, tittlebar=no, width=400, height=400");
+          
+          //doc.write = "<tr><td>Cant</td><td>Productos</td><td>Precios</td></tr>" + productos_html;
+          //doc.window.print();
+          //doc.close();
           me.borrarVenta();
           }else{
             

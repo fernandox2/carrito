@@ -47,6 +47,7 @@ class VentaController extends Controller
 
             }
 
+            
             echo true;
         }
         catch (\Exception $e) {
