@@ -28,7 +28,7 @@
         "lodash.update": "^4.10.2",
         "minimist": "^1.2.5",
         "mixin-deep": "^2.0.1",
-        "set-value": "^3.0.1",
+        "set-value": "^4.0.1",
         "sweetalert2": "^9.10.2",
         "vue-currency-filter": "^4.0.3",
         "webpack": "^4.42.0"
